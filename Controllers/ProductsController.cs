@@ -84,11 +84,13 @@ namespace SimpleAPI.Controllers
         public ActionResult DeleteProduct(Guid productId)
         {
             var product = _ctx.Products.FirstOrDefault(e => e.Id == productId);
-            if(product != null)
+            if(product == null)
             {
-                _ctx.Products.Remove(product);
-                _ctx.SaveChanges();
+                return NotFound();
             }
+
+            _ctx.Products.Remove(product);
+            _ctx.SaveChanges();
 
             return NoContent();
         }
