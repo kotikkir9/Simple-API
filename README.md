@@ -6,7 +6,7 @@ Before you can use this API, you need to apply the migration to the database, us
   > dotnet ef database update Initial
 
 ## Documentation
-This API is working with "product" entities, that you can get, add, update and delete.
+This API is working with "product" entities, that you can read, create, update and delete.
 
 Product entity consists of: <br>
 >Name: string (required) <br>
