@@ -15,14 +15,17 @@ Product entity consists of: <br>
 >Description: string (optional) <br>
 
 ### GET
-To get a JSON collection of all products, use following method:
+To get a JSON collection of all products, use the following method:
 > GET /api/products
+
+You can filter the products by adding "search" query in the URL, like in following example (your seach query will be compared against product name, category and description):
+> GET /api/products?search=ball
 
 To get JSON object for one single product, use following method:
 > GET /api/products/{productId:GUID}
 
 ### POST
-To create a new product, use following method:
+To create a new product, use the following method:
 > POST /api/products
 
 with request body (example): 
@@ -36,7 +39,7 @@ with request body (example):
 Response will be a JSON object of the new product with an unique ID.
 
 ### PUT
-To update an existing product, use following method: 
+To update an existing product, use the following method: 
 > PUT /api/products
 
 with request body (example): 
@@ -49,3 +52,7 @@ with request body (example):
 >}
 
 Response will be a JSON object of the updated product.
+
+### DELETE
+To delete a product from the database, use the following method:
+> DELETE /api/products/{productId:GUID}
