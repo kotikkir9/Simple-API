@@ -21,13 +21,20 @@ namespace SimpleAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> GetProducts()
+        public ActionResult<IEnumerable<Product>> GetProducts([FromQuery]string search)
         {
-            var products = _ctx.Products;
-            return Ok(products);
+            var collection = _ctx.Products as IQueryable<Product>;
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                collection = collection.Where(p => p.Name.Contains(search) || p.Category.Contains(search) ||p.Description.Contains(search));
+            }
+
+            collection = collection.OrderBy(p => p.Category);
+
+            return Ok(collection.ToList<Product>());
         }
 
-        [HttpGet("{productId}")]
+        [HttpGet("{productId}", Name = "GetProduct")]
         public ActionResult<Product> GetProduct(Guid productId)
         {
             var product = _ctx.Products.FirstOrDefault(e => e.Id == productId);
@@ -46,7 +53,7 @@ namespace SimpleAPI.Controllers
             _ctx.Products.Add(product);
             _ctx.SaveChanges();
 
-            return Created($"/api/products/{product.Id}", product);
+            return CreatedAtRoute("GetProduct" ,new { productId = product.Id}, product);
         }
 
         [HttpPut]
