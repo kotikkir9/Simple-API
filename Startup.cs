@@ -24,6 +24,8 @@ namespace SimpleAPI
             services.AddControllers().AddNewtonsoftJson();
             services.AddDbContextPool<ProductsDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ProductsConnection"))
                 .LogTo(Console.WriteLine, LogLevel.Information));
+
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -32,6 +34,8 @@ namespace SimpleAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin => true).AllowCredentials());
 
             app.UseStaticFiles();
 
