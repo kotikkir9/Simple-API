@@ -57,10 +57,20 @@ namespace SimpleAPI.Controllers
                 return BadRequest();
             }
 
-            _ctx.Products.Update(product);
+            var existingProduct = _ctx.Products.FirstOrDefault(e => e.Id == product.Id);
+            if(existingProduct == null)
+            {
+                return NotFound();
+            }
+
+            existingProduct.Name = product.Name;
+            existingProduct.Price = product.Price;
+            existingProduct.Category = product.Category;
+            existingProduct.Description = product.Description;
+
             _ctx.SaveChanges();
 
-            return Ok(product);
+            return Ok(existingProduct);
         }
 
         [HttpDelete("{productId}")]
