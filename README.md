@@ -35,3 +35,17 @@ with request body (example):
 
 Response will be a JSON object of the new product with an unique ID.
 
+### PUT
+To update an existing product, use following method: 
+> PUT /api/products
+
+with request body (example): 
+>{ <br>
+>&nbsp;"id": "8dba1425-e5ea-4581-8294-a52f794a51a7",<br>
+>&nbsp;"name": "Ball", <br>
+>&nbsp;"price": 100, <br>
+>&nbsp;"category": "Sport", <br>
+>&nbsp;"description": "This field is optional, and is allowed to be null" <br>
+>}
+
+Response will be a JSON object of the updated product.
